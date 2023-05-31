@@ -1,0 +1,95 @@
+version: 0.1
+component: build
+timeoutInSeconds: 10000
+runAs: root
+shell: bash
+env:
+  exportedVariables:
+    - BUILDRUN_HASH
+
+steps:
+  - type: Command
+    name: "Export BUILDRUN_HASH as variable"
+    timeoutInSeconds: 40
+    command: |
+      export BUILDRUN_HASH=`echo ${OCI_BUILD_RUN_ID} | rev | cut -c 1-7`
+      echo "BUILDRUN_HASH: " $BUILDRUN_HASH
+    onFailure:
+      - type: Command
+        command: |
+          echo "Failed to obtain BUILDRUN_HASH"
+        timeoutInSeconds: 400
+        runAs: root
+
+  - type: Command
+    name: "Build Docker image for php"
+    command: |
+      docker build -t <php_container_repo>:${BUILDRUN_HASH} 1b_diy_cicd/src/php/.
+      echo "Run PHP"
+      docker run -dit -p 9000:9000 --name php <php_container_repo>:${BUILDRUN_HASH}
+      echo "Run php successfully"
+    onFailure:
+      - type: Command
+        command: |
+          echo "Failed to build Docker container for php"
+        timeoutInSeconds: 400
+        runAs: root
+  
+  - type: Command
+    name: "Build Docker image for nginx"
+    command: |
+      docker build -t <nginx_container_repo>:${BUILDRUN_HASH} 1b_diy_cicd/src/nginx/.
+      echo "Run nginx-php"
+      docker run -dit -p 5000:5000 --name nginx --add-host=php:172.17.0.2 <nginx_container_repo>:${BUILDRUN_HASH}
+      # echo "Run nginx successfully"
+    onFailure:
+      - type: Command
+        command: |
+          echo "Failed to build Docker container for nginx"
+        timeoutInSeconds: 400
+        runAs: root
+  
+  - type: Command
+    name: "Build Pa11y CI Container for web accessibility testing"
+    command: |
+      echo "Build Pa11y CI image"
+      docker build -t pally-test:latest pa11y-test/.
+      echo "Pa11y CI build completed"
+    onFailure:
+      - type: Command
+        command: |
+          echo "Failed to build Docker container for Pa11y"
+        timeoutInSeconds: 400
+        runAs: root
+
+  - type: Command
+    name: "Execute accessibility test"
+    command: |
+      docker ps -a
+      docker logs nginx-php
+      docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' nginx
+      docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' php
+      echo "Execute Pa11y test"
+      docker run pally-test
+    onFailure:
+      - type: Command
+        command: |
+          echo "Accessibility Test Failed"
+        timeoutInSeconds: 400
+        runAs: root
+
+  - type: Command
+    name: "Push Nginx and PHP Docker Image to OCIR"
+    command: |
+      echo "Login to OCIR"
+      docker login <region_key>.ocir.io -u <Username> -p <Auth_Token>
+      echo "Push Nginx image to OCIR"
+      docker push <nginx_container_repo>:${BUILDRUN_HASH}
+      echo "Push PHP image to OCIR"
+      docker push <php_container_repo>:${BUILDRUN_HASH}
+    onFailure:
+      - type: Command
+        command: |
+          echo "Failed to push images $BUILDRUN_HASH to OCIR"
+        timeoutInSeconds: 400
+        runAs: root

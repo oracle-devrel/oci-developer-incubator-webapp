@@ -1,0 +1,155 @@
+title: "DIY Webapp Deployment with DevOps"
+description: "Terraform Script to deploy DIY Webapp on OCI with DevOps"
+informationalText: "Please access the MySQL instance from the Bastion to complete the setup."
+schemaVersion: 1.1.0
+version: "20220210"
+locale: "en"
+
+variableGroups:
+- title: General Configuration
+  visible: false
+  variables:
+    - compartment_ocid
+    - tenancy_ocid
+    - region
+
+- title: General Configuration
+  visible: true
+  variables:
+    - resource_naming_prefix
+    - ssh_public_key
+
+- title: Network Configuration
+  visible: true
+  variables:
+    - oke_vcn_cidr_blocks
+    - oke_k8sapiendpoint_subnet_cidr_block
+    - oke_service_lb_subnet_cidr_block
+    - oke_nodepool_cidr_block
+
+
+- title: OKE Cluster Configuration
+  visible: true
+  variables:
+    - kubernetes_version
+    - node_shape
+    - shape_ocpus
+    - shape_mems
+    - image_os_id
+    
+
+variables:
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    required: true
+    title: "Compartment OCID" 
+    description: "Please select the target compartment"
+
+  tenancy_ocid:
+    type: oci:identity:tenancy:id
+    required: true
+    title: "Tenancy OCID"
+    description: "Please select the target tenancy"
+
+  region:
+    type: oci:identity:region:name
+    required: true
+    title: "Region"
+    description: "Please select the target region"
+
+  resource_naming_prefix:
+    type: string
+    required: true
+    title: "Resource naming prefix"
+    description: "Please input the resource naming prefix for OCI resources"
+
+  oke_vcn_cidr_blocks:
+    type: string
+    required: true
+    title: "OKE VCN CIDR Block"
+    description: "Please input the OKE VCN CIDR Block"
+
+  oke_k8sapiendpoint_subnet_cidr_block:
+    type: string
+    required: true
+    title: "OKE API Endpoint Subnet CIDR Block"
+    description: "Please input the OKE API Endpoint Subnet CIDR Block"
+
+  oke_service_lb_subnet_cidr_block:
+    type: string
+    required: true
+    title: "OKE Service Load Balancer Subnet CIDR Block"
+    description: "Please input the OKE Service Load Balancer Subnet CIDR Block"
+
+  oke_nodepool_cidr_block:
+    type: string
+    required: true
+    title: "OKE Node Pool Subnet CIDR Block"
+    description: "Please input the OKE Node Pool Subnet CIDR Block"
+
+  ssh_public_key:
+    title: "SSH Public Key"
+    type: oci:core:ssh:publickey
+    description: "The public SSH key for the key-pair that you want to use, if you wish to login to the instances over SSH"
+    required: true
+
+  kubernetes_version:
+    title: "Kubernetes Version"
+    required: true
+    type: enum
+    description: "Please choose the supported Kubernetes version"
+    default: "v1.26.2"
+    enum:
+      - "v1.26.2"
+      - "v1.25.4"
+      - "v1.24.1"
+      - "v1.23.4"
+
+  node_shape:
+    title: "Node shape"
+    required: true
+    type: oci:core:instanceshape:name
+    description: "Please choose the supported instance shape for the node"
+    dependsOn:      
+       compartmentId: ${compartment_ocid}
+
+  shape_ocpus:
+    title: "Number of OCPUs of each node"
+    required: true
+    type: string
+    description: "Please key in the number of OCPUs"
+
+  shape_mems:
+    title: "Memory of each node in GB"
+    required: true
+    type: string
+    description: "Please key in the amount of memory in GB"
+
+  image_os_id:
+    title: "OS Image OCID of the node pool"
+    required: true
+    type: oci:core:image:id
+    description: "Please choose the supported OS image for the node"
+    dependsOn:      
+       compartmentId: ${compartment_ocid}
+       operatingSystem: "Oracle Linux"
+       shape: ${node_shape}
+
+outputs:
+  webapp_url:
+    type: link
+    title: "Webapp URL"
+    displayText: "Webapp URL"
+    visible: true
+  
+  bastion_url:
+    type: link
+    title: "Bastion URL"
+    displayText: "Bastion URL"
+    visible: true
+
+  deployment_pipeline_url:
+    type: link
+    title: "Deployment Pipeline URL"
+    displayText: "Deployment Pipeline URL"
+    visible: true
