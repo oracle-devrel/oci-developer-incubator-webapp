@@ -6,7 +6,7 @@
 This repository provides Web App use case with 6 different deployment paths for you to choose from based on your preference and requirements. As each path comes with its own benefits, refer to the table below to guide you in making an informed decision.
 
 | Benefits | DIY | Mix & Match | Managed |
-| --- | --- | --- | --- |
+| :--- | :---: | :---: | :---: |
 | Highly available and high performance infrastructure with autoscaling | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | Ease of integration with OCI IaaS and PaaS services | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | Highly customizable frontend and backend using programming language and framework of your choice | :white_check_mark: | :white_check_mark: | :x: |
