@@ -15,7 +15,12 @@ This repository provides Web App use case with 6 different deployment paths for 
 | Gain immediate access to the latest features from MySQL team | :x: | :white_check_mark: | :heavy_minus_sign: |
 | Simple drag-and-drop interface to build a complete app including user interface, business logic and data service | :x: | :x: | :white_check_mark:  |
 | Pre-built controls for security, authentication, database interaction, validation and session management | :x: | :x: | :white_check_mark: |
-|
+
+:white_check_mark: = Supported
+
+:x: = Not supported
+
+:heavy_minus_sign: = Not applicable
 
 Continuous Integration and Continuous Delivery **(CI/CD)** accelerates app development by introducing automation into the stages of app development including build, test and deploy. Choose this option to adopt agile app development principles.
 
