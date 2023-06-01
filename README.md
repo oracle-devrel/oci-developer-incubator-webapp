@@ -24,6 +24,9 @@ This repository provides Web App use case with 6 different deployment paths for 
 
 Continuous Integration and Continuous Delivery **(CI/CD)** accelerates app development by introducing automation into the stages of app development including build, test and deploy. Choose this option to adopt agile app development principles.
 
+## Getting Started
+Click on the deployment path of your choice for more details and deployment instructions. You may also click on the ![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg) button below to automate the deployment using OCI Resource Manager.
+
 * [**1a. DIY**](1a_diy)
 
     Deploy a containerized webapp based on Nginx & PHP on Oracle Container Enginer for Kubernetes (OKE) and connect to self-hosted MySQL Community Edition (CE).
@@ -60,8 +63,6 @@ Continuous Integration and Continuous Delivery **(CI/CD)** accelerates app devel
 
     [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://<replace_zipfile>)
 
-## Getting Started
-Click on the deployment path of your choice for more details and deployment instructions. You may also click on the ![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg) button above to automate the deployment using OCI Resource Manager. 
 
 ### Prerequisites
 Familiarity with webapp development and Oracle Cloud Infrastructure (OCI) is desireable but not required.
