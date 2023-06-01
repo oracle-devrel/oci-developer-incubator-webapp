@@ -24,44 +24,44 @@ This repository provides Web App use case with 6 different deployment paths for 
 
 Continuous Integration and Continuous Delivery **(CI/CD)** accelerates app development by introducing automation into the stages of app development including build, test and deploy. Choose this option to adopt agile app development principles.
 
-* **1a. DIY**
+* [**1a. DIY**](1a_diy)
 
-    Deploy Nginx & PHP Webapp on Oracle Container Enginer for Kubernetes (OKE) and connect to self-hosted MySQL CE
+    Deploy a containerized webapp based on Nginx & PHP on Oracle Container Enginer for Kubernetes (OKE) and connect to self-hosted MySQL Community Edition (CE).
 
     [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://<replace_zipfile>)     
 
-* **1b. DIY with CI/CD**
+* [**1b. DIY with CI/CD**](1b_diy_cicd)
 
-    Build, test and deploy Nginx & PHP Webapp on Oracle Container Enginer for Kubernetes (OKE) using OCI DevOps and connect to self-hosted MySQL CE
-
-    [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://<replace_zipfile>)
-
-* **2a. Mix and Match**
-
-    Deploy Nginx & PHP Webapp on Oracle Container Enginer for Kubernetes (OKE) and connect to OCI MySQL Database Service (MDS)
+    Build, test and deploy a containerized webapp based on Nginx & PHP on Oracle Container Enginer for Kubernetes (OKE) using OCI DevOps and connect to self-hosted MySQL Community Edition (CE).
 
     [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://<replace_zipfile>)
 
-* **2b. Mix and Match with CI/CD**
+* [**2a. Mix and Match**](2a_mixmatch)
 
-    Build, test and deploy Nginx & PHP Webapp on Oracle Container Enginer for Kubernetes (OKE) and connect to OCI MySQL Database Service (MDS)
-
-    [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://<replace_zipfile>)
-
-* **3a. Managed**
-
-    Deploy Webapp using Application Express (APEX) on Autonomous Database 
+    Deploy a containerized webapp based on Nginx & PHP on Oracle Container Enginer for Kubernetes (OKE) and connect to fully-managed OCI MySQL Database Service (MDS).
 
     [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://<replace_zipfile>)
 
-* **3b. Managed with CI/CD**
+* [**2b. Mix and Match with CI/CD**](2b_mixmatch_cicd)
 
-    Build, test and deploy Webapp using Application Express (APEX) on Autonomous Database 
+    Build, test and deploy a containerized webapp based on Nginx & PHP on Oracle Container Enginer for Kubernetes (OKE) and connect to fully-managed OCI MySQL Database Service (MDS).
+
+    [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://<replace_zipfile>)
+
+* [**3a. Managed**](3a_managed)
+
+    Deploy a fully functional webapp using a low code development platform called Application Express (APEX) on Autonomous Database.
+
+    [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://<replace_zipfile>)
+
+* [**3b. Managed with CI/CD**](3b_managed_cicd)
+
+    Build, test and deploy a fully functional webapp using a low code development platform called Application Express (APEX) on Autonomous Database.
 
     [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://<replace_zipfile>)
 
 ## Getting Started
-Click into the deployment path of your choice for more details and deployment instructions. You may also click on the ![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg) button above to automate the deployment using OCI Resource Manager. 
+Click on the deployment path of your choice for more details and deployment instructions. You may also click on the ![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg) button above to automate the deployment using OCI Resource Manager. 
 
 ### Prerequisites
 Familiarity with webapp development and Oracle Cloud Infrastructure (OCI) is desireable but not required.
