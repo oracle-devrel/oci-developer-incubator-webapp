@@ -2,12 +2,20 @@
 
 [![License: UPL](https://img.shields.io/badge/license-UPL-green)](https://img.shields.io/badge/license-UPL-green) [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=oracle-devrel_oci-developer-incubator)](https://sonarcloud.io/dashboard?id=oracle-devrel_oci-developer-incubator)
 
-## THIS IS A NEW REPO THAT IS NOT READY FOR USE YET.  PLEASE CHECK BACK SOON!
-
 ## Introduction
 This repository provides Web App use case with 6 different deployment paths for you to choose from based on your preference and requirements. As each path comes with its own benefits, refer to the table below to guide you in making an informed decision.
 
-![deployment_paths](img/webapp_deployment_paths.png)
+| Benefits | DIY | Mix & Match | Managed |
+| --- | --- | --- | --- |
+| Highly available and high performance infrastructure with autoscaling | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| Ease of integration with OCI IaaS and PaaS services | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| Highly customizable frontend and backend using programming language and framework of your choice | :white_check_mark: | :white_check_mark: | :x: |
+| Automated database operations such as patching, upgrade and backup | :x: | :white_check_mark: | :white_check_mark: |
+| Advanced data protection against external attacks and data breaches | :x: | :white_check_mark: | :white_check_mark: |
+| Gain immediate access to the latest features from MySQL team | :x: | :white_check_mark: | :heavy_minus_sign: |
+| Simple drag-and-drop interface to build a complete app including user interface, business logic and data service | :x: | :x: | :white_check_mark:  |
+| Pre-built controls for security, authentication, database interaction, validation and session management | :x: | :x: | :white_check_mark: |
+|
 
 Continuous Integration and Continuous Delivery **(CI/CD)** accelerates app development by introducing automation into the stages of app development including build, test and deploy. Choose this option to adopt agile app development principles.
 
