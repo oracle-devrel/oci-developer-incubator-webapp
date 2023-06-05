@@ -1,5 +1,29 @@
 ---
 apiVersion: v1
+kind: Namespace
+metadata:
+    name: cloudnative-webapp
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-host-configmaps
+  namespace: cloudnative-webapp
+data:
+  mysql-host: "<input mysql host IP here>"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secret
+  namespace: cloudnative-webapp
+type: Opaque
+stringData:
+  mysql-database: <input database name>
+  mysql-user: <input mysql username>
+  mysql-password: <input mysql password>
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: php
@@ -55,7 +79,7 @@ spec:
     spec:
       containers:
       - name: php
-        image: lhr.ocir.io/apaccpt01/php-webapp-mds:arik3za
+        image: <region_key>.ocir.io/<tenancy_namespace>/webapp/php:1.0
         resources:
           requests:
             memory: "100Mi"
@@ -108,7 +132,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: lhr.ocir.io/apaccpt01/nginx-php-mds:qwtcc2h
+        image: <region_key>.ocir.io/<tenancy_namespace>/webapp/nginx:1.0
         ports:
         - containerPort: 5000
         resources:

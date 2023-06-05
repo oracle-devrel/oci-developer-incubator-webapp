@@ -2,13 +2,32 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-    name: cloudnative-webapp-mds
+    name: cloudnative-webapp
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-host-configmaps
+  namespace: cloudnative-webapp
+data:
+  mysql-host: "<input mysql host IP here>"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secret
+  namespace: cloudnative-webapp
+type: Opaque
+stringData:
+  mysql-database: <input database name>
+  mysql-user: <input mysql username>
+  mysql-password: <input mysql password>
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: php
-  namespace: cloudnative-webapp-mds
+  namespace: cloudnative-webapp
   labels:
     tier: app
 spec:
@@ -23,9 +42,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx
-  namespace: cloudnative-webapp-mds
+  namespace: cloudnative-webapp
   labels:
     tier: web
+  annotations:
+    oci.oraclecloud.com/load-balancer-type: "lb"
+    service.beta.kubernetes.io/oci-load-balancer-shape: "flexible"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "10"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "15"
 spec:
   type: LoadBalancer
   ports:
@@ -38,7 +62,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: php
-  namespace: cloudnative-webapp-mds
+  namespace: cloudnative-webapp
   labels:
     tier: app
 spec:
@@ -55,38 +79,43 @@ spec:
     spec:
       containers:
       - name: php
-        image: <php_container_repo>:${BUILDRUN_HASH}
+        image: <region_key>.ocir.io/<tenancy_namespace>/webapp/php:1.0
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "0.25"
+          limits:
+            memory: "200Mi"
+            cpu: "0.5"
         ports:
         - containerPort: 9000
         env:
         - name: MDS_HOST
           valueFrom:
             configMapKeyRef:
-              name: mds-host-configmaps
-              key: mds-host
+              name: mysql-host-configmaps
+              key: mysql-host
         - name: MDS_DATABASE
           valueFrom:
             secretKeyRef:
-              name: mds-secret
-              key: mds-database
+              name: mysql-secret
+              key: mysql-database
         - name: MDS_USER
           valueFrom:
             secretKeyRef:
-              name: mds-secret
-              key: mds-user
+              name: mysql-secret
+              key: mysql-user
         - name: MDS_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mds-secret
-              key: mds-password
-      imagePullSecrets:
-      - name: ocir-secret
+              name: mysql-secret
+              key: mysql-password
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx
-  namespace: cloudnative-webapp-mds
+  namespace: cloudnative-webapp
   labels:
     tier: web
 spec:
@@ -103,9 +132,14 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: <nginx_container_repo>:${BUILDRUN_HASH}
+        image: <region_key>.ocir.io/<tenancy_namespace>/webapp/nginx:1.0
         ports:
         - containerPort: 5000
-      imagePullSecrets:
-      - name: ocir-secret
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "0.25"
+          limits:
+            memory: "200Mi"
+            cpu: "0.5"
 ---

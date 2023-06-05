@@ -27,7 +27,6 @@ variableGroups:
     - oke_service_lb_subnet_cidr_block
     - oke_nodepool_cidr_block
 
-
 - title: OKE Cluster Configuration
   visible: true
   variables:
@@ -36,8 +35,14 @@ variableGroups:
     - shape_ocpus
     - shape_mems
     - image_os_id
-    
 
+- title: OCI Container Registry Configuration
+  visible: true
+  variables:
+    - ocir_username
+    - ocir_password
+    - region_key
+    
 variables:
   compartment_ocid:
     type: oci:identity:compartment:id
@@ -134,6 +139,24 @@ variables:
        compartmentId: ${compartment_ocid}
        operatingSystem: "Oracle Linux"
        shape: ${node_shape}
+
+  ocir_username:
+    title: "Username for OCIR Login"
+    required: true
+    type: "string"
+    description: "Federated: <tenancy-namespace>/oracleidentitycloudservice/<username>, IAM User: <tenancy-namespace>/<username>"
+
+  ocir_password:
+    title: "Password for OCIR Login"
+    required: true
+    type: password
+    description: "Key in the auth token of your user. To generate a new auth token, click Profile on the top right corner of OCI console, then click on your username. On the bottom left pane, click Auth Token and Generate Token."
+
+  region_key:
+    title: "Key of the current region"
+    required: true
+    type: "string"
+    description: "Key in the key of the current region eg. syd for ap-sydney-1 region. Can be found using OCI CLI command: oci iam region list --output table"
 
 outputs:
   webapp_url:

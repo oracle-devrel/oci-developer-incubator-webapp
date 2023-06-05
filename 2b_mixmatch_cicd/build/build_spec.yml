@@ -24,7 +24,7 @@ steps:
   - type: Command
     name: "Build Docker image for php"
     command: |
-      docker build -t <php_container_repo>:${BUILDRUN_HASH} 1b_diy_cicd/src/php/.
+      docker build -t <php_container_repo>:${BUILDRUN_HASH} 2b_mixmatch_cicd/src/php/.
       echo "Run PHP"
       docker run -dit -p 9000:9000 --name php <php_container_repo>:${BUILDRUN_HASH}
       echo "Run php successfully"
@@ -38,7 +38,7 @@ steps:
   - type: Command
     name: "Build Docker image for nginx"
     command: |
-      docker build -t <nginx_container_repo>:${BUILDRUN_HASH} 1b_diy_cicd/src/nginx/.
+      docker build -t <nginx_container_repo>:${BUILDRUN_HASH} 2b_mixmatch_cicd/src/nginx/.
       echo "Run nginx-php"
       docker run -dit -p 5000:5000 --name nginx --add-host=php:172.17.0.2 <nginx_container_repo>:${BUILDRUN_HASH}
       # echo "Run nginx successfully"

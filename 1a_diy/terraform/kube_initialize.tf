@@ -47,7 +47,7 @@ resource "null_resource" "create_mysql_secret" {
 }
 
 resource "null_resource" "deploy_webapp_service" {
-    depends_on = [null_resource.create_mysql_config, null_resource.create_mysql_secret]
+    depends_on = [null_resource.create_mysql_config, null_resource.create_mysql_secret, null_resource.build-nginx, null_resource.build-php]
     provisioner "local-exec" {
         command = "kubectl apply -f deploy/deploy-webapp.yml"
         interpreter = [ "/bin/bash","-c"]

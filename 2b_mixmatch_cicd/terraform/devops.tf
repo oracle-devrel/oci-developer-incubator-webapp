@@ -35,6 +35,15 @@ resource oci_devops_deploy_artifact k8s-manifest-artifact {
     display_name = "${var.resource_naming_prefix}-k8s-manifest-artifact"
 }
 
+## ----- Code Repo ----- ##
+resource oci_devops_repository oci-code-repo {
+    name = "${var.resource_naming_prefix}-oci-code-repo"
+    project_id = oci_devops_project.devops-project.id
+    default_branch = "refs/heads/main"
+    description = "Code repo for webapp"
+    repository_type = "HOSTED"
+}
+
 ## ----- Deployment Pipeline ----- ##
 resource "oci_devops_deploy_pipeline" "deploy-pipeline" {
     project_id = oci_devops_project.devops-project.id
@@ -61,6 +70,59 @@ resource oci_devops_deploy_stage deploy-oke-stage {
     }
 }
 
-output "deployment_pipeline_url" {
-    value = "https://cloud.oracle.com/devops-deployment/projects/${oci_devops_project.devops-project.id}/pipelines/${oci_devops_deploy_pipeline.deploy-pipeline.id}"
+## ----- Build Pipeline ----- ## 
+resource oci_devops_build_pipeline build-webapp-pipeline {
+  description  = "build webapp Container"
+  display_name = "build-webapp-pipeline"
+  project_id = oci_devops_project.devops-project.id
+}
+
+## ----- Build Stages ----- ##
+
+resource oci_devops_build_pipeline_stage build-webapp-stage {
+  build_pipeline_id = oci_devops_build_pipeline.build-webapp-pipeline.id
+  build_pipeline_stage_predecessor_collection {
+    items {
+      id = oci_devops_build_pipeline.build-webapp-pipeline.id
+    }
+  }
+  build_pipeline_stage_type = "BUILD"
+  build_source_collection {
+    items {
+      branch = "main"
+      connection_type = "DEVOPS_CODE_REPOSITORY"
+      name            = "main"
+      repository_id   = oci_devops_repository.oci-code-repo.id
+      repository_url  = oci_devops_repository.oci-code-repo.http_url
+    }
+  }
+  build_spec_file = "2b_mixmatch_cicd/build/build_spec.yml"
+  description  = "build webapp"
+  display_name = "build-webapp-stage"
+  image = "OL7_X86_64_STANDARD_10"
+  primary_build_source               = "main"
+  stage_execution_timeout_in_seconds = "36000"
+}
+
+resource oci_devops_build_pipeline_stage trigger-deployment-pipeline {
+  build_pipeline_id = oci_devops_build_pipeline.build-webapp-pipeline.id
+  build_pipeline_stage_predecessor_collection {
+    items {
+      id = oci_devops_build_pipeline_stage.build-webapp-stage.id
+    }
+  }
+  build_pipeline_stage_type = "TRIGGER_DEPLOYMENT_PIPELINE"
+  deploy_pipeline_id = oci_devops_deploy_pipeline.deploy-pipeline.id
+  description        = "Trigger Deployment Pipeline"
+  display_name       = "trigger-deployment-pipeline"
+  is_pass_all_parameters_enabled = "true"
+}
+
+
+output "build_pipeline_url" {
+    value = "https://cloud.oracle.com/devops-build/projects/${oci_devops_project.devops-project.id}/build-pipelines/${oci_devops_build_pipeline.build-webapp-pipeline.id}"
+}
+
+output "code_repo_url" {
+    value = "https://cloud.oracle.com/devops-coderepository/repositories/${oci_devops_repository.oci-code-repo.id}"
 }

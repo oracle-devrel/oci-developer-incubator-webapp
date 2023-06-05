@@ -129,9 +129,9 @@
 
 1. Click the Navigation Menu on the upper left, navigate to **Developer Services**, click on **Container Registry** under **Containers & Artifacts**.
 
-2. Click Create repository, type `php-webapp` as the Repository name, select Private and click **Create repository**.
+2. Click Create repository, type `webapp/php` as the Repository name, select Public and click **Create repository**.
 
-3. Repeat step 2 and change the Repository name to `nginx-webapp`.
+3. Repeat step 2 and change the Repository name to `webapp/nginx`.
 
 **f. Set up CICD pipeline in OCI DevOps**
 
@@ -178,10 +178,12 @@
 6. Set up deployment artifacts
 
     6.1 Click **Artifacts** on the left menu panel and click **Add artifact**. Key in Name, select `Kubernetes manifest` as the Type, select `Inline` as the Artifact source, copy the content of the kubernetes manifest file in `1b_diy_cicd/deploy/deploy-webapp.yml` and paste it to the Value section. 
+
+    6.2 Update the values for mysql-host, mysql-database, mysql-user and mysql-password in line 13, 22, 23 and 24 respectively.
     
-    6.2 Change `<php_container_repo>` and `<nginx_container_repo>` in line 58 and 106 to `<region-key>.ocir.io/<tenancy-namespace>/php-webapp` and `<region-key>.ocir.io/<tenancy-namespace>/nginx-webapp` respectively. You may find the `<region-key>` for your region in this [link](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm) and `<tenancy-namespace>` can be found by clicking on the container repository in the Container Registry service.
+    6.3 Update the image repo URL for php and nginx in line 82 and 135 respectively. You may find the `<region_key>` for your region in this [link](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm) and `<tenancy_namespace>` can be found by clicking on the container repository in the Container Registry service.
     
-    6.3 Finally, click **Add**.
+    6.4 Finally, click **Add**.
 
 7. Set up deployment pipelines
 
@@ -212,15 +214,15 @@
 
     9.1 Click **Triggers** on the left menu panel and click **Create Trigger**. Key in Name, Description, select **OCI code repository** as the Source connection, click **Select**, tick the OCI code repository you created in step 4 and click **Save**, click **Add action**, click **Select**, tick the build pipeline you created in step 8 and click **Save**, tick on **Push** Event, type `main` in Source branch and click **Save**. Finally click **Create**.
 
-10. Update the build spec file
+10. Update the build spec file located in 1b_diy_cicd/build/build_spec.yml
 
-    10.1 Change the `<php_container_repo>` in line 27, 29 and 89 to `<region-key>.ocir.io/<tenancy-namespace>/php-webapp`.
+    10.1 Change the `<php_container_repo>` in line 27, 29 and 89 to `<region-key>.ocir.io/<tenancy-namespace>/webapp/php`.
 
-    10.2 Change the `<nginx_container_repo>` in line 41, 43 and 87 to `<region-key>.ocir.io/<tenancy-namespace>/nginx-webapp`.
+    10.2 Change the `<nginx_container_repo>` in line 41, 43 and 87 to `<region-key>.ocir.io/<tenancy-namespace>/webapp/nginx`.
 
     10.3 You may find the `<region-key>` for your region in this [link](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm) and `<tenancy-namespace>` can be found by clicking on the container repository in the Container Registry service.
 
-    10.4 Update the `<Username>` and `<Auth_Token>` in line 85. `<Username>` is `<TenancyName>/<Federation>/<UserName>`for federated user or `<TenancyName>/<YourUserName>` for OCI IAM user. `<Auth_Token>` is the one created in step 4.2. `<TenancyName>`, `<Federation>` and `<UserName>` can be found by clicking the user icon on the top right of the web console.
+    10.4 Update the `<region-key>`, `<Username>` and `<Auth_Token>` in line 85. `<Username>` is `<TenancyName>/<Federation>/<UserName>`for federated user or `<TenancyName>/<YourUserName>` for OCI IAM user. `<Auth_Token>` is the one created in step 4.2. `<TenancyName>`, `<Federation>` and `<UserName>` can be found by clicking the user icon on the top right of the web console.
 
     **Note**: For production implementation, please use OCI Vault to store the Auth_Token instead of inserting it in the build spec file as clear text. Refer to this [link](https://docs.oracle.com/en-us/iaas/Content/devops/using/build_specs.htm) on how to add secret in OCI Vault as a variable in a build spec file.
 
@@ -241,7 +243,3 @@
 [OKE Documentation](https://docs.oracle.com/en-us/iaas/Content/ContEng/home.htm)
 
 [OCI DevOps Documentation](https://docs.oracle.com/en-us/iaas/Content/devops/using/home.htm)
-
-## License
-
-`License info here`

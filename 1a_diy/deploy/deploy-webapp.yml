@@ -55,7 +55,7 @@ spec:
     spec:
       containers:
       - name: php
-        image: lhr.ocir.io/apaccpt01/php-webapp-mds:arik3za
+        image: <region_key>.ocir.io/<tenancy_namespace>/webapp/php:1.0
         resources:
           requests:
             memory: "100Mi"
@@ -108,7 +108,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: lhr.ocir.io/apaccpt01/nginx-php-mds:qwtcc2h
+        image: <region_key>.ocir.io/<tenancy_namespace>/webapp/nginx:1.0
         ports:
         - containerPort: 5000
         resources:

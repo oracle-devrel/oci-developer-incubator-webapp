@@ -76,7 +76,59 @@
     show tables;
     ```
 
-**e. Deploy application to OKE Cluster**
+**e. Build webapp container images and push them to OCI Container Registry**
+
+1. Create container registries
+
+    1.1 Click the Navigation Menu on the upper left, navigate to Developer Services, select Container Registry.
+
+    1.2 Click Create repository.
+
+    1.3 Create 2 public repositories named `webapp/php` and `webapp/nginx`.
+
+2. Build container images
+
+    2.1 Navigate to Cloud Shell.
+
+    2.2 Clone this git repo.
+
+    2.3 Go to Nginx source folder.
+    ```
+    cd 2a_mixmatch/src/nginx
+    ```
+
+    2.4 Build Nginx container image.
+    ```
+    docker build -t <region_key>.ocir.io/<tenancy_namespace>/webapp/nginx:1.0 .
+    ```
+    Note: <region_key> can be found using OCI CLI command `oci iam region list --output table` then refer to the key of the region and <tenancy_namespace> using `oci os ns get`.
+
+    2.5 Go to PHP source folder.
+    ```
+    cd ../php
+    ```
+
+    2.6 Build PHP container image.
+    ```
+    docker build -t <region_key>.ocir.io/<tenancy_namespace>/webapp/php:1.0 .
+    ```
+    Note: <region_key> can be found using OCI CLI command `oci iam region list --output table` then refer to the key of the region and <tenancy_namespace> using `oci os ns get`.
+
+3. Push container images
+
+    3.1 Login to OCI Container Registry
+    ```
+    docker login <region_key>.ocir.io -u <tenancy_namespace>/oracleidentitycloudservice/<username> -p <auth_token>
+    ```
+    Note: <region_key> can be found using OCI CLI command `oci iam region list --output table` then refer to the key of the region and <tenancy_namespace> using `oci os ns get`. For <auth_token>, click Profile on the top right corner of OCI console, then click on your username. On the bottom left pane, click Auth Token and Generate Token.
+
+    2.7 Push Nginx and PHP container images to container registries
+    ```
+    docker push <region_key>.ocir.io/<tenancy_namespace>/webapp/nginx:1.0
+    docker push <region_key>.ocir.io/<tenancy_namespace>/webapp/php:1.0
+    ```
+
+**f. Deploy application to OKE Cluster**
 
 1. Set up OKE cluster access on cloud shell
 
@@ -90,7 +142,7 @@
 
     ![access_cluster_shell.png](img/access_cluster_shell.png)
 
-    1.4 Update the MySQL host IP address in deploy/mysql_config.yml and credentials in deploy/mysql_secret.yml
+    1.4 Update the MySQL host IP address in deploy/mysql_config.yml, credentials in deploy/mysql_secret.yml and container image locations of php and nginx in 2a_mixmatch/deploy/deploy-webapp.yml
 
     1.5 Deploy the application
     ```
@@ -114,7 +166,3 @@ For example
 [OKE Documentation](https://docs.oracle.com/en-us/iaas/Content/ContEng/home.htm)
 
 [MDS Documentation](https://docs.oracle.com/en-us/iaas/mysql-database/index.html)
-
-## License
-
-`License info here`

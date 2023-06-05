@@ -165,8 +165,14 @@ outputs:
     displayText: "Bastion URL"
     visible: true
 
-  deployment_pipeline_url:
+  code_repo_url:
     type: link
-    title: "Deployment Pipeline URL"
-    displayText: "Deployment Pipeline URL"
+    title: "Code repo URL"
+    displayText: "Code repo URL"
+    visible: true
+
+  build_pipeline_url:
+    type: link
+    title: "Build Pipeline URL"
+    displayText: "Build Pipeline URL"
     visible: true
