@@ -1,4 +1,4 @@
-# Deployment Path: DIY
+# Deployment Path: DIY (Click to Deploy)
 
 ## How It Works
 

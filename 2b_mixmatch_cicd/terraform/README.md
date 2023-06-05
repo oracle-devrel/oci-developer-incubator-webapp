@@ -1,4 +1,4 @@
-# Deployment Path: DIY with CICD
+# Deployment Path: Mix and Match with CICD (Click to Deploy)
 
 ## How It Works
 

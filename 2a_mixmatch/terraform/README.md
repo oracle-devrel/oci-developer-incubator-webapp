@@ -1,4 +1,4 @@
-# Deployment Path: Mix and Match
+# Deployment Path: Mix and Match (Click to Deploy)
 
 ## How It Works
 

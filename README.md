@@ -25,43 +25,43 @@ This repository provides Web App use case with 6 different deployment paths for 
 Continuous Integration and Continuous Delivery **(CI/CD)** accelerates app development by introducing automation into the stages of app development including build, test and deploy. Choose this option to adopt agile app development principles.
 
 ## Getting Started
-Click on the deployment path of your choice for more details and deployment instructions. You may also click on the ![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg) button below to automate the deployment using OCI Resource Manager.
+Click on the deployment path of your choice for more details and deployment instructions. You may also click on the ![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg) button below and follow the instructions to automate the deployment using OCI Resource Manager.
 
 * [**1a. DIY**](1a_diy)
 
     Deploy a containerized webapp based on Nginx & PHP on Oracle Container Enginer for Kubernetes (OKE) and connect to self-hosted MySQL Community Edition (CE).
 
-    [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://<replace_zipfile>)     
+    [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](1a_diy/terraform/README.md)     
 
 * [**1b. DIY with CI/CD**](1b_diy_cicd)
 
     Build, test and deploy a containerized webapp based on Nginx & PHP on Oracle Container Enginer for Kubernetes (OKE) using OCI DevOps and connect to self-hosted MySQL Community Edition (CE).
 
-    [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://<replace_zipfile>)
+    [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](1b_diy_cicd/terraform/README.md)
 
 * [**2a. Mix and Match**](2a_mixmatch)
 
     Deploy a containerized webapp based on Nginx & PHP on Oracle Container Enginer for Kubernetes (OKE) and connect to fully-managed OCI MySQL Database Service (MDS).
 
-    [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://<replace_zipfile>)
+    [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](2a_mixmatch/terraform/README.md)
 
 * [**2b. Mix and Match with CI/CD**](2b_mixmatch_cicd)
 
     Build, test and deploy a containerized webapp based on Nginx & PHP on Oracle Container Enginer for Kubernetes (OKE) and connect to fully-managed OCI MySQL Database Service (MDS).
 
-    [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://<replace_zipfile>)
+    [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](2b_mixmatch_cicd/terraform/README.md)
 
 * [**3a. Managed**](3a_managed)
 
     Deploy a fully functional webapp using a low code development platform called Application Express (APEX) on Autonomous Database.
 
-    [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://<replace_zipfile>)
+    [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](3a_managed/terraform/README.md)
 
 * [**3b. Managed with CI/CD**](3b_managed_cicd)
 
     Build, test and deploy a fully functional webapp using a low code development platform called Application Express (APEX) on Autonomous Database.
 
-    [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://<replace_zipfile>)
+    [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](3b_managed_cicd/terraform/README.md)
 
 
 ### Prerequisites
